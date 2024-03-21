@@ -37,3 +37,26 @@ function displayPokemon(pokemon) {
         <p>Type: ${pokemonType}</p>
     `;
 }
+
+function displayAllPokemon() {
+    const url = `https://pokeapi.co/api/v2/pokemon/`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const allPokemon = data.results;
+            console.log(allPokemon);
+            allPokemon.forEach(pokemon => {
+                const pokemonName = pokemon.name;
+                const pokemonUrl = pokemon.url;
+                const pokemonListItem = document.createElement('li');
+                pokemonListItem.innerHTML = `
+                    <a href="${pokemonUrl}" target="_blank">${pokemonName}</a>
+                `;
+                document.getElementById('all-the-pokemon').appendChild(pokemonListItem);
+            });
+        })
+        .catch(error => console.log(error));
+}
+
+displayAllPokemon();
