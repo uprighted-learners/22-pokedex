@@ -38,25 +38,50 @@ function displayPokemon(pokemon) {
     `;
 }
 
-function displayAllPokemon() {
-    const url = `https://pokeapi.co/api/v2/pokemon/`;
+// with try catch
+async function displayAllPokemon() {
+    const url = 'https://pokeapi.co/api/v2/pokemon';
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const allPokemon = data.results;
-            console.log(allPokemon);
-            allPokemon.forEach(pokemon => {
-                const pokemonName = pokemon.name;
-                const pokemonUrl = pokemon.url;
-                const pokemonListItem = document.createElement('li');
-                pokemonListItem.innerHTML = `
-                    <a href="${pokemonUrl}" target="_blank">${pokemonName}</a>
-                `;
-                document.getElementById('all-the-pokemon').appendChild(pokemonListItem);
-            });
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        console.log(data);
+
+        data.results.forEach(pokemon => {
+            const pokemonName = pokemon.name;
+            const pokemonUrl = pokemon.url;
+            const pokemonListItem = document.createElement('li');
+            pokemonListItem.innerHTML =
+                `
+                <a href="${pokemonUrl}">${pokemonName}</a>
+            `;
+            pokemonList.appendChild(pokemonListItem);
         })
-        .catch(error => console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
 }
+// with promises
+// function displayAllPokemon() {
+//     const url = `https://pokeapi.co/api/v2/pokemon/`;
+
+//     fetch(url)
+//         .then(response => response.json())
+//         .then(data => {
+//             const allPokemon = data.results;
+//             console.log(allPokemon);
+//             allPokemon.forEach(pokemon => {
+//                 const pokemonName = pokemon.name;
+//                 const pokemonUrl = pokemon.url;
+//                 const pokemonListItem = document.createElement('li');
+//                 pokemonListItem.innerHTML = `
+//                     <a href="${pokemonUrl}" target="_blank">${pokemonName}</a>
+//                 `;
+//                 document.getElementById('all-the-pokemon').appendChild(pokemonListItem);
+//             });
+//         })
+//         .catch(error => console.log(error));
+// }
 
 displayAllPokemon();
