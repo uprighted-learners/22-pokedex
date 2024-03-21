@@ -6,7 +6,10 @@
 
 .container {
   text-align: center;
-  margin: 20px auto;
+  margin-top: 20px;
+  margin-bottom: 200px;
+  margin-left: 100px;
+  margin-right: 100px;
   width: 60%;
 }
 
